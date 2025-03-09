@@ -25,7 +25,8 @@ main(int argc, char *argv[])
                 exec(argv[1], v);
             }
             wait(0);
-            p = "";
+            memset(q, 0, 1024);
+            p = q;
         } else {
             *p++ = t;
         }
