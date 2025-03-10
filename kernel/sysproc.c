@@ -95,3 +95,22 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+uint64
+sys_trace(void)
+{
+  int musk;
+  if (argint(0, &musk) < 0) {
+    return -1;
+  }
+  mycpu()->proc->settrace = musk;
+  
+  return musk;
+}
+
+uint64
+sys_sysinfo(void)
+{
+  
+  return 0;
+}
