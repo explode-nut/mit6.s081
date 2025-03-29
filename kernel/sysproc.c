@@ -81,6 +81,22 @@ int
 sys_pgaccess(void)
 {
   // lab pgtbl: your code here.
+  uint64 va;
+  int n;
+  uint64 ubuff;
+  unsigned int kbuff = 0;
+  argaddr(0, &va);
+  argint(1, &n);
+  argaddr(2, &ubuff);
+  struct proc *p = myproc();
+  for (uint64 i = 0; i < n; i++) {
+    pte_t *pte = walk(p->pagetable, va + (i * PGSIZE), 0);
+    if (*pte & PTE_A) {
+      kbuff |= (1 << i);
+      *pte ^= PTE_A;
+    }
+  }
+  copyout(p->pagetable, ubuff, (char *)&kbuff, 4);
   return 0;
 }
 #endif
