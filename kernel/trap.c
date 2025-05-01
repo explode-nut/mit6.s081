@@ -77,9 +77,43 @@ usertrap(void)
     exit(-1);
 
   // give up the CPU if this is a timer interrupt.
-  if(which_dev == 2)
-    yield();
+  if(which_dev == 2) {
+    if (p->ticks == 0) {
+      p->ticks = -1;
+    }
+    if ((p->ticks != -1) && (++(p->past_ticks) == p->ticks)) {
+      p->handler_epc = p->trapframe->epc;
+      p->handler_ra = p->trapframe->ra;
+      p->handler_sp = p->trapframe->sp;
+      p->handler_gp = p->trapframe->gp;
+      p->handler_tp = p->trapframe->tp;
+      p->handler_s0 = p->trapframe->s0;
+      p->handler_s1 = p->trapframe->s1;
+      p->handler_s2 = p->trapframe->s2;
+      p->handler_s3 = p->trapframe->s3;
+      p->handler_s4 = p->trapframe->s4;
+      p->handler_s5 = p->trapframe->s5;
+      p->handler_s6 = p->trapframe->s6;
+      p->handler_s7 = p->trapframe->s7;
+      p->handler_s8 = p->trapframe->s8;
+      p->handler_s9 = p->trapframe->s9;
+      p->handler_s10 = p->trapframe->s10;
+      p->handler_s11 = p->trapframe->s11;
+      p->handler_a0 = p->trapframe->a0;
+      p->handler_a1 = p->trapframe->a1;
+      p->handler_a2 = p->trapframe->a2;
+      p->handler_a3 = p->trapframe->a3;
+      p->handler_a4 = p->trapframe->a4;
+      p->handler_a5 = p->trapframe->a5;
+      p->handler_a6 = p->trapframe->a6;
+      p->handler_a7 = p->trapframe->a7;
 
+      p->trapframe->epc = p->handler;
+      usertrapret();
+    }
+    yield();
+  }
+    
   usertrapret();
 }
 

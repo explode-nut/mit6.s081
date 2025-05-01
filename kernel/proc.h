@@ -92,6 +92,34 @@ struct proc {
   int killed;                  // If non-zero, have been killed
   int xstate;                  // Exit status to be returned to parent's wait
   int pid;                     // Process ID
+  int ticks;
+  uint64 handler;
+  int past_ticks;
+  uint64 handler_epc;
+  uint64 handler_ra;
+  uint64 handler_sp;
+  uint64 handler_gp;
+  uint64 handler_tp;
+  uint64 handler_s0;
+  uint64 handler_s1;
+  uint64 handler_s2;
+  uint64 handler_s3;
+  uint64 handler_s4;
+  uint64 handler_s5;
+  uint64 handler_s6;
+  uint64 handler_s7;
+  uint64 handler_s8;
+  uint64 handler_s9;
+  uint64 handler_s10;
+  uint64 handler_s11;
+  uint64 handler_a0;
+  uint64 handler_a1;
+  uint64 handler_a2;
+  uint64 handler_a3;
+  uint64 handler_a4;
+  uint64 handler_a5;
+  uint64 handler_a6;
+  uint64 handler_a7;
 
   // wait_lock must be held when using this:
   struct proc *parent;         // Parent process
