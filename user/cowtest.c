@@ -12,6 +12,7 @@
 void
 simpletest()
 {
+  // printf("1111\n");
   uint64 phys_size = PHYSTOP - KERNBASE;
   int sz = (phys_size / 3) * 2;
 
